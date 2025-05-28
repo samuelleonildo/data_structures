@@ -33,6 +33,7 @@ QueueNode<E>::QueueNode(const E& _value) : value(_value), next(nullptr) {}
 template <typename E>
 void QueueNode<E>::set_next(QueueNode<E>* _next) { this->next = _next; }
 
+
 // return methods
 template <typename E>
 QueueNode<E>* QueueNode<E>::get_next(void) const { return this->next; }

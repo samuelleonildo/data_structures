@@ -5,6 +5,7 @@
 #include "./queue_node.hpp"
 
 #include <stdexcept>
+#include <utility>
 
 
 template <typename E>
@@ -22,10 +23,10 @@ public:
 
     // no-return methods
     void enqueue(const E& it);
-    void dequeue(void);
     void clear(void);
 
     // return methods
+    E dequeue(void);
     int size(void) const;
     const E& front(void) const;
 };
@@ -65,21 +66,6 @@ void Queue<E>::enqueue(const E& it)
 }
 
 template <typename E>
-void Queue<E>::dequeue(void)
-{
-    if (this->queue_size > 0)
-    {
-        QueueNode<E>* temp = this->first_node;
-        this->first_node = this->first_node->get_next();
-        delete temp;
-
-        this->queue_size--;
-
-        if (this->queue_size == 0) { this->rear = nullptr; }
-    }
-}
-
-template <typename E>
 void Queue<E>::clear(void)
 {
     while (this->queue_size > 0) { this->dequeue(); }
@@ -87,6 +73,26 @@ void Queue<E>::clear(void)
 
 
 // return methods
+template <typename E>
+E Queue<E>::dequeue(void)
+{
+    if (this->queue_size == 0)
+    {
+        throw std::out_of_range("Queue is empty");
+    }
+
+    QueueNode<E>* temp = this->first_node;
+    E dequeued_value = std::move(temp->get_value());
+
+    this->first_node = this->first_node->get_next();
+    delete temp;
+    this->queue_size--;
+
+    if (this->queue_size == 0) { this->rear = nullptr; }
+
+    return dequeued_value;
+}
+
 template <typename E>
 int Queue<E>::size(void) const { return this->queue_size; }
 
