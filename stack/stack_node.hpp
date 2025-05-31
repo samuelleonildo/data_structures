@@ -1,5 +1,5 @@
-#ifndef _STACK_NODE_HPP_
-#define _STACK_NODE_HPP_
+#ifndef STACK_NODE_HPP
+#define STACK_NODE_HPP
 
 template <typename E>
 class StackNode
@@ -30,14 +30,14 @@ StackNode<E>::StackNode(const E& _value) : value(_value), next(nullptr) {}
 
 // no return methods
 template <typename E>
-void StackNode<E>::set_next(StackNode<E>* _next) { this->next = _next; }
+void StackNode<E>::set_next(StackNode<E>* _next) { next = _next; }
 
 // return methods
 template <typename E>
-StackNode<E>* StackNode<E>::get_next(void) const { return this->next; }
+StackNode<E>* StackNode<E>::get_next(void) const { return next; }
 
 template <typename E>
-const E& StackNode<E>::get_value(void) const { return this->value; }
+const E& StackNode<E>::get_value(void) const { return value; }
 
 
 #endif

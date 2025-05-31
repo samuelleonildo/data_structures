@@ -1,5 +1,5 @@
-#ifndef _STACK_HPP_
-#define _STACK_HPP_
+#ifndef STACK_HPP
+#define STACK_HPP
 
 #include "./stack_node.hpp"
 
@@ -38,7 +38,7 @@ Stack<E>::Stack(void) : top_node(nullptr), stack_size(0) {}
 template <typename E>
 Stack<E>::~Stack()
 {
-    if (this->stack_size > 0) { this->clear(); }
+    if (stack_size > 0) { clear(); }
 }
 
 
@@ -48,16 +48,16 @@ void Stack<E>::push(const E& it)
 {
     StackNode<E>* new_node = new StackNode(it);
 
-    new_node->set_next(this->top_node);
-    this->top_node = new_node;
+    new_node->set_next(top_node);
+    top_node = new_node;
 
-    this->stack_size++;
+    stack_size++;
 }
 
 template <typename E>
 void Stack<E>::clear(void)
 {
-    while (this->stack_size > 0) { this->pop(); }
+    while (stack_size > 0) { pop(); }
 }
 
 
@@ -65,30 +65,30 @@ void Stack<E>::clear(void)
 template <typename E>
 E Stack<E>::pop(void)
 {
-    if (this->stack_size == 0)
+    if (stack_size == 0)
     {
         throw std::out_of_range("Stack is empty");
     }
     
-    StackNode<E>* temp = this->top_node;
+    StackNode<E>* temp = top_node;
     E popped_value = std::move(temp->get_value());
 
-    this->top_node = this->top_node->get_next();
+    top_node = top_node->get_next();
     delete temp;
-    this->stack_size--;
+    stack_size--;
 
     return popped_value;
 }
 
 template <typename E>
-int Stack<E>::size(void) const { return this->stack_size; }
+int Stack<E>::size(void) const { return stack_size; }
 
 template <typename E>
 const E& Stack<E>::top(void) const
 {
-    if (this->stack_size > 0)
+    if (stack_size > 0)
     {
-        return this->top_node->get_value();
+        return top_node->get_value();
     }
 
     throw std::out_of_range("Stack is empty");
