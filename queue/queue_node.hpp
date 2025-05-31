@@ -1,5 +1,5 @@
-#ifndef _QUEUE_NODE_HPP_
-#define _QUEUE_NODE_HPP_
+#ifndef QUEUE_NODE_HPP
+#define QUEUE_NODE_HPP
 
 
 template <typename E>
@@ -31,15 +31,15 @@ QueueNode<E>::QueueNode(const E& _value) : value(_value), next(nullptr) {}
 
 // no return methods
 template <typename E>
-void QueueNode<E>::set_next(QueueNode<E>* _next) { this->next = _next; }
+void QueueNode<E>::set_next(QueueNode<E>* _next) { next = _next; }
 
 
 // return methods
 template <typename E>
-QueueNode<E>* QueueNode<E>::get_next(void) const { return this->next; }
+QueueNode<E>* QueueNode<E>::get_next(void) const { return next; }
 
 template <typename E>
-const E& QueueNode<E>::get_value(void) const { return this->value; }
+const E& QueueNode<E>::get_value(void) const { return value; }
 
 
 #endif

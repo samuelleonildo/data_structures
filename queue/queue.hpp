@@ -1,5 +1,5 @@
-#ifndef _QUEUE_HPP_
-#define _QUEUE_HPP_
+#ifndef QUEUE_HPP
+#define QUEUE_HPP
 
 
 #include "./queue_node.hpp"
@@ -41,7 +41,7 @@ Queue<E>::Queue(void) : queue_size(0), first_node(nullptr), rear(nullptr) {}
 template <typename E>
 Queue<E>::~Queue()
 {
-    if (this->queue_size > 0) { this->clear(); }
+    if (queue_size > 0) { clear(); }
 }
 
 
@@ -51,24 +51,24 @@ void Queue<E>::enqueue(const E& it)
 {
     QueueNode<E>* new_node = new QueueNode<E>(it);
 
-    if (this->queue_size == 0)
+    if (queue_size == 0)
     {
-        this->first_node = new_node;
-        this->rear = new_node;
+        first_node = new_node;
+        rear = new_node;
     }
     else
     {
-        this->rear->set_next(new_node);
-        this->rear = this->rear->get_next();
+        rear->set_next(new_node);
+        rear = rear->get_next();
     }
 
-    this->queue_size++;
+    queue_size++;
 }
 
 template <typename E>
 void Queue<E>::clear(void)
 {
-    while (this->queue_size > 0) { this->dequeue(); }
+    while (queue_size > 0) { dequeue(); }
 }
 
 
@@ -76,32 +76,32 @@ void Queue<E>::clear(void)
 template <typename E>
 E Queue<E>::dequeue(void)
 {
-    if (this->queue_size == 0)
+    if (queue_size == 0)
     {
         throw std::out_of_range("Queue is empty");
     }
 
-    QueueNode<E>* temp = this->first_node;
+    QueueNode<E>* temp = first_node;
     E dequeued_value = std::move(temp->get_value());
 
-    this->first_node = this->first_node->get_next();
+    first_node = first_node->get_next();
     delete temp;
-    this->queue_size--;
+    queue_size--;
 
-    if (this->queue_size == 0) { this->rear = nullptr; }
+    if (queue_size == 0) { rear = nullptr; }
 
     return dequeued_value;
 }
 
 template <typename E>
-int Queue<E>::size(void) const { return this->queue_size; }
+int Queue<E>::size(void) const { return queue_size; }
 
 template <typename E>
 const E& Queue<E>::front(void) const
 {
-    if (this->queue_size > 0)
+    if (queue_size > 0)
     {
-        return this->first_node->get_value();
+        return first_node->get_value();
     }
     
     throw std::out_of_range("Queue is empty");
