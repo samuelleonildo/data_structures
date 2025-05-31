@@ -40,79 +40,79 @@ template <typename E>
 ArrayList<E>::ArrayList(void) : arr(nullptr), list_size(0), capacity(0) {}
 
 template <typename E>
-ArrayList<E>::~ArrayList() { this->clear(); }
+ArrayList<E>::~ArrayList() { clear(); }
 
 
 // no return methods
 template <typename E>
 void ArrayList<E>::push_back(const E& it)
 {
-    if (this->list_size >= this->capacity)
+    if (list_size >= capacity)
     {
-        size_t new_capacity = (this->capacity == 0) ? 1 : (this->capacity * 2);
+        size_t new_capacity = (capacity == 0) ? 1 : (capacity * 2);
         E* new_arr = new E[new_capacity];
 
-        if (this->arr != nullptr)
+        if (arr != nullptr)
         {
-            std::copy(arr, arr + this->list_size, new_arr);
-            delete[] this->arr;
+            std::copy(arr, arr + list_size, new_arr);
+            delete[] arr;
         }
         
-        this->arr = new_arr;
-        this->capacity = new_capacity;
+        arr = new_arr;
+        capacity = new_capacity;
     }
 
-    this->arr[this->list_size++] = it;
+    arr[list_size++] = it;
 }
 
 template <typename E>
 void ArrayList<E>::clear(void)
 {
-    if (this->arr != nullptr)
+    if (arr != nullptr)
     {
-        delete[] this->arr;
-        this->arr = nullptr;
+        delete[] arr;
+        arr = nullptr;
 
-        this->list_size = 0;
-        this->capacity = 0;
+        list_size = 0;
+        capacity = 0;
     }
 }
 
 
 // return methods
 template <typename E>
-size_t ArrayList<E>::size(void) const { return this->list_size; }
+size_t ArrayList<E>::size(void) const { return list_size; }
 
 template <typename E>
-bool ArrayList<E>::empty(void) const { return (this->list_size == 0); }
+bool ArrayList<E>::empty(void) const { return (list_size == 0); }
 
 template <typename E>
 const E& ArrayList<E>::front(void) const
 {
-    if (this->list_size == 0)
+    if (list_size == 0)
     {
         throw std::out_of_range("List is empty");
     }
 
-    return (this->arr[0]);
+    return (arr[0]);
 }
 
 template <typename E>
 const E& ArrayList<E>::back(void) const
 {
-    if (this->list_size == 0)
+    if (list_size == 0)
     {
         throw std::out_of_range("List is empty");
     }
 
-    return (this->arr[this->list_size - 1]);
+    return (arr[list_size - 1]);
 }
 
 template <typename E>
 E ArrayList<E>::pop_back(void)
 {
-    if (this->list_size <= 0) { throw std::out_of_range("List is empty"); }
-    return this->arr[--this->list_size];
+    if (list_size <= 0) { throw std::out_of_range("List is empty"); }
+    return arr[--list_size];
 }
 
 
@@ -120,12 +120,12 @@ E ArrayList<E>::pop_back(void)
 template <typename E>
 E& ArrayList<E>::operator[](size_t index)
 {
-    if (index >= this->list_size)   
+    if (index >= list_size)   
     {
         throw std::out_of_range("Index out of List range");
     }
 
-    return this->arr[index];
+    return arr[index];
 }
 
 
